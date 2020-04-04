@@ -1,4 +1,4 @@
-package Main
+package Find
 
 import org.kohsuke.args4j.Argument
 import org.kohsuke.args4j.CmdLineException
