@@ -8,33 +8,30 @@ import java.io.*
 
 fun main(args: Array<String>) {
     Find().correctControl(args)
-    Find().createPath()
 }
 
 class Find {
 
-    @Option(name = "-d", usage = "Поиск файла в текущей директории")
-    private val directory = File("")
-
-    @Option(name = "-r", usage = "Поиск файл во всех поддиректориях")
+    @Option(name = "-r", metaVar = "RecursiveFlag", usage = "Поиск файл во всех поддиректориях")
     private val subDirectory = false
 
-    @Argument(required = true, usage = "Название нужного файла")
+    @Option(name = "-d", metaVar = "DirectoryFlag", usage = "Поиск файла в текущей директории")
+    private val directory = ""
+
+    @Argument(required = true, metaVar = "FileName", usage = "Название нужного файла", index = 1)
     private val file = ""
 
     fun correctControl(args: Array<String>) {
-        val parse = CmdLineParser(args)
+        val parse = CmdLineParser(this)
         try {
             parse.parseArgument(*args)
         } catch (Exception: CmdLineException) {
-            println("java -jar НазваниеJarФайлаПроектаFindUtility.jar -r -d Directory НазваниеФайла")
+            println("java -jar НазваниеJarФайлаПроектаFindUtility.jar [-r] [-d Directory] НазваниеФайла.txt")
         }
-    }
-
-    fun createPath() {
         val foundList = mutableListOf<String>()
-        if (directory.isDirectory) {
-            for (path in RecursionFind.directoriesResearch(directory, file, subDirectory, foundList)) println(path)
+        val directoryToFile = File(directory)
+        if (directoryToFile.isDirectory) {
+            for (path in RecursionFind.directoriesResearch(directoryToFile, file, subDirectory, foundList)) println(path)
         }
     }
 

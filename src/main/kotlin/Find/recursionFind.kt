@@ -8,8 +8,9 @@ object RecursionFind {
         return file.listFiles()!!
     }
 
-    fun directoriesResearch(file: File, fileName: String, subDirectory: Boolean,
-                          foundList: MutableList<String>): List<String> {
+    fun directoriesResearch(
+        file: File, fileName: String, subDirectory: Boolean,
+        foundList: MutableList<String>): List<String> {
         val fileList = fileToList(file)
         if (fileName !in fileList.map { it.toString() } && !subDirectory) {
             foundList.add("Такого файла не существует!")
