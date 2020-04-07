@@ -17,10 +17,10 @@ class Parser internal constructor(commandLine: String) {
     private val file = ""
 
     init {
-        val splitArg = commandLine.split(" ").toTypedArray()
+        val splitArgs = commandLine.split(" ").toTypedArray()
         val parser = CmdLineParser(this)
         try {
-            parser.parseArgument(*splitArg)
+            parser.parseArgument(*splitArgs)
         } catch (ex: CmdLineException) {
             println(ex.message)
         }
