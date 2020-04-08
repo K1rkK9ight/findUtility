@@ -4,10 +4,11 @@ import org.kohsuke.args4j.Argument
 import org.kohsuke.args4j.CmdLineException
 import org.kohsuke.args4j.CmdLineParser
 import org.kohsuke.args4j.Option
-import java.io.*
+import java.io.File
+import java.lang.StringBuilder
 
 fun main(args: Array<String>) {
-    Find().correctControl(args)
+    Find().createPath(args)
 }
 
 class Find {
@@ -28,21 +29,22 @@ class Find {
     }
 
     private fun isDirectoryCheck(file: File): Boolean {
+        if (!file.exists()) {
+            println("Такой директории не существует!")
+            return false
+        }
         return file.isDirectory
     }
 
-    private fun checkingFileExistence(file: File, fileName: String, subDirectory: Boolean): Boolean {
-        if (fileName !in fileToList(file).map { it.toString() } && !subDirectory) {
-            println("Такого файла не существует!")
+    private fun checkingFileExistence(directory: String, fileName: String, subDirectory: Boolean): Boolean {
+        if (File(fileName) !in fileToList(File(directory)) && !subDirectory) {
             return true
         }
         return false
     }
 
-    fun directoriesResearch(
-        file: File, fileName: String, subDirectory: Boolean,
-        foundList: MutableList<String>): List<String> {
-        if (checkingFileExistence(file, fileName, subDirectory)) return emptyList()
+    private fun directoriesResearch(file: File, fileName: String, subDirectory: Boolean,
+                                    foundList: MutableList<String>): List<String> {
         for (element in fileToList(file)) {
             if (fileName in element.toString()) foundList.add(element.toString())
             if (isDirectoryCheck(element) && subDirectory) {
@@ -52,17 +54,31 @@ class Find {
         return foundList
     }
 
-    fun correctControl(args: Array<String>) {
+    fun controlFindFile(file: File, fileName: String, subDirectory: Boolean,
+                        foundList: MutableList<String>): List<String> {
+        checkingFileExistence(directory, fileName, subDirectory)
+        val list = directoriesResearch(file, fileName, subDirectory, foundList)
+        if (foundList.isEmpty()) foundList.add("Такого файла не существует!")
+        return list
+    }
+
+    private fun parser(args: Array<String>) {
         val parse = CmdLineParser(this)
         try {
             parse.parseArgument(*args)
         } catch (Exception: CmdLineException) {
             println("java -jar НазваниеJarФайлаПроектаFindUtility.jar [-r] [-d Directory] НазваниеФайла.txt")
         }
+    }
+
+    fun createPath(args: Array<String>) {
+        parser(args)
         val foundList = mutableListOf<String>()
+        val sb = StringBuilder()
         if (isDirectoryCheck(File(directory))) {
-            for (path in directoriesResearch(File(directory), file, subDirectory, foundList)) println(path)
+            for (path in controlFindFile(File(directory), file, subDirectory, foundList)) sb.append(path)
         }
+        println(sb.toString())
     }
 
 }
