@@ -66,12 +66,11 @@ internal class FindTest {
     }
 
     @Test
-    fun test7() { //Данный тест работает корректно(проверено) даже если добавить файл в соурс директорию(ожидается
-        //пустой лист т.к меня просили убрать все тестовые файлы с src!)
+    fun test7() {
         val directory = ""
         val file = "watchList.txt"
-        val subDirectory = false
-        val assertPath = emptyList<String>()
+        val subDirectory = true
+        val assertPath = mutableListOf("C:\\Users\\GamerPro\\IdeaProjects\\findUtility\\files4TestFind\\watchList.txt")
         val foundFile = mutableListOf<String>()
         assertEquals(assertPath, Find().directoriesResearch(directory, file, subDirectory, foundFile))
     }

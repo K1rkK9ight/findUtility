@@ -6,6 +6,7 @@ import org.kohsuke.args4j.CmdLineParser
 import org.kohsuke.args4j.Option
 import java.io.File
 import java.lang.StringBuilder
+import java.lang.System.getProperty
 
 fun main(args: Array<String>) {
     Find().createPath(args)
@@ -23,7 +24,9 @@ class Find {
     private var file = ""
 
     private fun directoryControl(directory1: String): String {
-        if (directory1.isEmpty()) return File("src").absolutePath
+        if (directory1.isEmpty()) {
+            return getProperty("user.dir").removeSuffix("target")
+        }
         return directory1
     }
 
