@@ -25,7 +25,10 @@ class Find {
 
     private fun directoryControl(directory1: String): String {
         if (directory1.isEmpty()) {
-            return getProperty("user.dir").removeSuffix("target")
+            val rootDirectory = getProperty("user.dir").split("findUtility")
+            val sb = StringBuilder()
+            sb.append(rootDirectory.first())
+            return sb.append("findUtility").toString()
         }
         return directory1
     }
