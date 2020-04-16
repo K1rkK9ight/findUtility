@@ -22,16 +22,23 @@ class Find {
 
     @Argument(required = true, usage = "Название нужного файла")
     private var file = ""
-
+    //В случае, если мы вынесем .jar файл в корень проекта:
     private fun directoryControl(directory1: String): String {
         if (directory1.isEmpty()) {
-            val rootDirectory = getProperty("user.dir").split("findUtility")
-            val sb = StringBuilder()
-            sb.append(rootDirectory.first())
-            return sb.append("findUtility").toString()
+            return getProperty("user.dir")//или File("").absolutePath
         }
         return directory1
-    }
+    } //если не выносить, а запускать из сожданной директории target, то получение пути корня проекта
+    //может выглядеть так:
+    // private fun directoryControl(directory1: String): String {
+    //if (directory1.isEmpty()) {
+    //val rootDirectory = File("").absolutePath.split("findUtility")
+    //val sb = StringBuilder()
+    //sb.append(rootDirectory.first())
+    //return sb.append("findUtility").toString()
+    //}
+    //return directory1
+    //}
 
     fun directoriesResearch(directory2: String, fileName: String, subDir: Boolean,
                                     researchList: MutableList<String>): List<String> {
