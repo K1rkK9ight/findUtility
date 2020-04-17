@@ -40,14 +40,14 @@ class Find {
     //return directory1
     //}
 
-    fun directoriesResearch(directory2: String, fileName: String, subDir: Boolean,
-                                    researchList: MutableList<String>): List<String> {
+    fun directoriesResearch(directory2: String, fileName: String, subDir: Boolean): List<String> {
         val rlyFile = File(directoryControl(directory2))
+        val researchList = mutableListOf<String>()
         for (element in rlyFile.listFiles()!!) {
             val elem = element.toString()
             if (fileName in elem) researchList.add(elem)
             if (element.isDirectory && subDir) {
-                directoriesResearch(elem, fileName, subDir, researchList)
+                directoriesResearch(elem, fileName, subDir).forEach { researchList.add(it) }
             }
         }
         return researchList
@@ -64,7 +64,6 @@ class Find {
 
     fun createPath(args: Array<String>) {
         parser(args)
-        val list4Path = mutableListOf<String>()
         val sb = StringBuilder()
         val directoryChecked = directoryControl(directory)
         val fileDirectory = File(directoryChecked)
@@ -74,7 +73,7 @@ class Find {
             count++
         }
         if (fileDirectory.isDirectory) {
-            for (path in directoriesResearch(directoryChecked, file, subDirectory, list4Path)) {
+            for (path in directoriesResearch(directoryChecked, file, subDirectory)) {
                 if (file in path) {
                     sb.append(path)
                     sb.append(" ")

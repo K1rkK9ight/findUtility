@@ -11,8 +11,7 @@ internal class FindTest {
         val file = "watchList.txt"
         val subDirectory = false
         val assertPath = mutableListOf("files4TestFind\\watchList.txt")
-        val foundFile = mutableListOf<String>()
-        assertEquals(assertPath, Find().directoriesResearch(directory, file, subDirectory, foundFile))
+        assertEquals(assertPath, Find().directoriesResearch(directory, file, subDirectory))
     }
 
     @Test
@@ -21,8 +20,7 @@ internal class FindTest {
         val file = "file4Test.txt"
         val subDirectory = true
         val assertPath = mutableListOf("files4TestFind\\dedInside\\file4Test.txt")
-        val foundFile = mutableListOf<String>()
-        assertEquals(assertPath, Find().directoriesResearch(directory, file, subDirectory, foundFile))
+        assertEquals(assertPath, Find().directoriesResearch(directory, file, subDirectory))
     }
 
     @Test
@@ -31,8 +29,7 @@ internal class FindTest {
         val file = "kursOVT.txt"
         val subDirectory = false
         val assertPath = mutableListOf("files4TestFind\\kursOVT.txt")
-        val foundFile = mutableListOf<String>()
-        assertEquals(assertPath, Find().directoriesResearch(directory, file, subDirectory, foundFile))
+        assertEquals(assertPath, Find().directoriesResearch(directory, file, subDirectory))
     }
 
     @Test
@@ -41,8 +38,7 @@ internal class FindTest {
         val file = "=_=.txt"
         val subDirectory = true
         val assertPath = mutableListOf("files4TestFind\\=_=\\=_=.txt")
-        val foundFile = mutableListOf<String>()
-        assertEquals(assertPath, Find().directoriesResearch(directory, file, subDirectory, foundFile))
+        assertEquals(assertPath, Find().directoriesResearch(directory, file, subDirectory))
     }
 
     @Test
@@ -51,8 +47,7 @@ internal class FindTest {
         val file = "hidden.txt"
         val subDirectory = true
         val assertPath = mutableListOf("files4TestFind\\recursionCheck\\1\\2\\3\\hidden.txt")
-        val foundFile = mutableListOf<String>()
-        assertEquals(assertPath, Find().directoriesResearch(directory, file, subDirectory, foundFile))
+        assertEquals(assertPath, Find().directoriesResearch(directory, file, subDirectory))
     }
 
     @Test
@@ -61,8 +56,7 @@ internal class FindTest {
         val file = "non.txt"
         val subDirectory = false
         val assertPath = emptyList<String>()
-        val foundFile = mutableListOf<String>()
-        assertEquals(assertPath, Find().directoriesResearch(directory, file, subDirectory, foundFile))
+        assertEquals(assertPath, Find().directoriesResearch(directory, file, subDirectory))
     }
 
     @Test
@@ -71,8 +65,7 @@ internal class FindTest {
         val file = "watchList.txt"
         val subDirectory = true
         val assertPath = mutableListOf("C:\\Users\\GamerPro\\IdeaProjects\\findUtility\\files4TestFind\\watchList.txt")
-        val foundFile = mutableListOf<String>()
-        assertEquals(assertPath, Find().directoriesResearch(directory, file, subDirectory, foundFile))
+        assertEquals(assertPath, Find().directoriesResearch(directory, file, subDirectory))
     }
 
 }
